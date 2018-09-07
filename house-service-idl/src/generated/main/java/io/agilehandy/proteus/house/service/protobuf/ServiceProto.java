@@ -15,6 +15,16 @@ public final class ServiceProto {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_io_agilehandy_proteus_house_service_Empty_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_io_agilehandy_proteus_house_service_Empty_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_io_agilehandy_proteus_house_service_Identifier_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_io_agilehandy_proteus_house_service_Identifier_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_io_agilehandy_proteus_house_service_HouseRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -35,32 +45,39 @@ public final class ServiceProto {
     java.lang.String[] descriptorData = {
       "\n:io/agilehandy/proteus/house/service/pr" +
       "otobuf/service.proto\022#io.agilehandy.prot" +
-      "eus.house.service\"u\n\014HouseRequest\022\n\n\002id\030" +
-      "\001 \001(\t\022\020\n\010maxRooms\030\002 \001(\005\022\020\n\010maxBaths\030\003 \001(" +
-      "\005\022\022\n\nmaxLotsize\030\004 \001(\002\022\017\n\007maxArea\030\005 \001(\002\022\020" +
-      "\n\010maxPrice\030\006 \001(\002\"\262\001\n\rHouseResponse\022\n\n\002id" +
-      "\030\001 \001(\t\022\016\n\006street\030\002 \001(\t\022\014\n\004city\030\003 \001(\t\022\013\n\003" +
-      "zip\030\004 \001(\t\022\r\n\005state\030\005 \001(\t\022\r\n\005rooms\030\006 \001(\005\022" +
-      "\r\n\005baths\030\007 \001(\002\022\r\n\005price\030\010 \001(\002\022\014\n\004area\030\t " +
-      "\001(\002\022\017\n\007lotsize\030\n \001(\002\022\017\n\007stories\030\013 \001(\0052\201\005" +
-      "\n\014HouseService\022s\n\010getHouse\0221.io.agilehan" +
+      "eus.house.service\"\007\n\005Empty\"\030\n\nIdentifier" +
+      "\022\n\n\002id\030\001 \001(\t\"u\n\014HouseRequest\022\n\n\002id\030\001 \001(\t" +
+      "\022\020\n\010maxRooms\030\002 \001(\005\022\020\n\010maxBaths\030\003 \001(\005\022\022\n\n" +
+      "maxLotsize\030\004 \001(\002\022\017\n\007maxArea\030\005 \001(\002\022\020\n\010max" +
+      "Price\030\006 \001(\002\"\262\001\n\rHouseResponse\022\n\n\002id\030\001 \001(" +
+      "\t\022\016\n\006street\030\002 \001(\t\022\014\n\004city\030\003 \001(\t\022\013\n\003zip\030\004" +
+      " \001(\t\022\r\n\005state\030\005 \001(\t\022\r\n\005rooms\030\006 \001(\005\022\r\n\005ba" +
+      "ths\030\007 \001(\002\022\r\n\005price\030\010 \001(\002\022\014\n\004area\030\t \001(\002\022\017" +
+      "\n\007lotsize\030\n \001(\002\022\017\n\007stories\030\013 \001(\0052\347\006\n\014Hou" +
+      "seService\022s\n\010getHouse\0221.io.agilehandy.pr" +
+      "oteus.house.service.HouseRequest\0322.io.ag" +
+      "ilehandy.proteus.house.service.HouseResp" +
+      "onse\"\000\022}\n\020getHousesByRooms\0221.io.agilehan" +
       "dy.proteus.house.service.HouseRequest\0322." +
       "io.agilehandy.proteus.house.service.Hous" +
-      "eResponse\"\000\022}\n\020getHousesByRooms\0221.io.agi" +
-      "lehandy.proteus.house.service.HouseReque" +
-      "st\0322.io.agilehandy.proteus.house.service" +
-      ".HouseResponse\"\0000\001\022}\n\020getHousesByBaths\0221" +
-      ".io.agilehandy.proteus.house.service.Hou" +
-      "seRequest\0322.io.agilehandy.proteus.house." +
-      "service.HouseResponse\"\0000\001\022\177\n\022getHousesBy" +
-      "Lotsize\0221.io.agilehandy.proteus.house.se" +
-      "rvice.HouseRequest\0322.io.agilehandy.prote" +
-      "us.house.service.HouseResponse\"\0000\001\022}\n\020ge" +
-      "tHousesByPrice\0221.io.agilehandy.proteus.h" +
-      "ouse.service.HouseRequest\0322.io.agilehand" +
-      "y.proteus.house.service.HouseResponse\"\0000" +
-      "\001B>\n,io.agilehandy.proteus.house.service" +
-      ".protobufB\014ServiceProtoP\001b\006proto3"
+      "eResponse\"\0000\001\022}\n\020getHousesByBaths\0221.io.a" +
+      "gilehandy.proteus.house.service.HouseReq" +
+      "uest\0322.io.agilehandy.proteus.house.servi" +
+      "ce.HouseResponse\"\0000\001\022\177\n\022getHousesByLotsi" +
+      "ze\0221.io.agilehandy.proteus.house.service" +
+      ".HouseRequest\0322.io.agilehandy.proteus.ho" +
+      "use.service.HouseResponse\"\0000\001\022}\n\020getHous" +
+      "esByPrice\0221.io.agilehandy.proteus.house." +
+      "service.HouseRequest\0322.io.agilehandy.pro" +
+      "teus.house.service.HouseResponse\"\0000\001\022r\n\014" +
+      "getAllHouses\022*.io.agilehandy.proteus.hou" +
+      "se.service.Empty\0322.io.agilehandy.proteus" +
+      ".house.service.HouseResponse\"\0000\001\022p\n\010addH" +
+      "ouse\0221.io.agilehandy.proteus.house.servi" +
+      "ce.HouseRequest\032/.io.agilehandy.proteus." +
+      "house.service.Identifier\"\000B>\n,io.agileha" +
+      "ndy.proteus.house.service.protobufB\014Serv" +
+      "iceProtoP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -74,14 +91,26 @@ public final class ServiceProto {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_io_agilehandy_proteus_house_service_HouseRequest_descriptor =
+    internal_static_io_agilehandy_proteus_house_service_Empty_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_io_agilehandy_proteus_house_service_Empty_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_io_agilehandy_proteus_house_service_Empty_descriptor,
+        new java.lang.String[] { });
+    internal_static_io_agilehandy_proteus_house_service_Identifier_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_io_agilehandy_proteus_house_service_Identifier_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_io_agilehandy_proteus_house_service_Identifier_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_io_agilehandy_proteus_house_service_HouseRequest_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_io_agilehandy_proteus_house_service_HouseRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_io_agilehandy_proteus_house_service_HouseRequest_descriptor,
         new java.lang.String[] { "Id", "MaxRooms", "MaxBaths", "MaxLotsize", "MaxArea", "MaxPrice", });
     internal_static_io_agilehandy_proteus_house_service_HouseResponse_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_io_agilehandy_proteus_house_service_HouseResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_io_agilehandy_proteus_house_service_HouseResponse_descriptor,

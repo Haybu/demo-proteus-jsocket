@@ -16,11 +16,15 @@ public final class HouseServiceServer extends io.netifi.proteus.AbstractProteusS
   private final java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>> getHousesByBaths;
   private final java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>> getHousesByLotsize;
   private final java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>> getHousesByPrice;
+  private final java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>> getAllHouses;
+  private final java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>> addHouse;
   private final java.util.function.Function<io.opentracing.SpanContext, java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>>> getHouseTrace;
   private final java.util.function.Function<io.opentracing.SpanContext, java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>>> getHousesByRoomsTrace;
   private final java.util.function.Function<io.opentracing.SpanContext, java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>>> getHousesByBathsTrace;
   private final java.util.function.Function<io.opentracing.SpanContext, java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>>> getHousesByLotsizeTrace;
   private final java.util.function.Function<io.opentracing.SpanContext, java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>>> getHousesByPriceTrace;
+  private final java.util.function.Function<io.opentracing.SpanContext, java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>>> getAllHousesTrace;
+  private final java.util.function.Function<io.opentracing.SpanContext, java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>>> addHouseTrace;
   @javax.inject.Inject
   public HouseServiceServer(HouseService service, java.util.Optional<io.micrometer.core.instrument.MeterRegistry> registry, java.util.Optional<io.opentracing.Tracer> tracer) {
     this.service = service;
@@ -30,12 +34,16 @@ public final class HouseServiceServer extends io.netifi.proteus.AbstractProteusS
       this.getHousesByBaths = java.util.function.Function.identity();
       this.getHousesByLotsize = java.util.function.Function.identity();
       this.getHousesByPrice = java.util.function.Function.identity();
+      this.getAllHouses = java.util.function.Function.identity();
+      this.addHouse = java.util.function.Function.identity();
     } else {
       this.getHouse = io.netifi.proteus.metrics.ProteusMetrics.timed(registry.get(), "proteus.server", "service", HouseService.SERVICE, "method", HouseService.METHOD_GET_HOUSE);
       this.getHousesByRooms = io.netifi.proteus.metrics.ProteusMetrics.timed(registry.get(), "proteus.server", "service", HouseService.SERVICE, "method", HouseService.METHOD_GET_HOUSES_BY_ROOMS);
       this.getHousesByBaths = io.netifi.proteus.metrics.ProteusMetrics.timed(registry.get(), "proteus.server", "service", HouseService.SERVICE, "method", HouseService.METHOD_GET_HOUSES_BY_BATHS);
       this.getHousesByLotsize = io.netifi.proteus.metrics.ProteusMetrics.timed(registry.get(), "proteus.server", "service", HouseService.SERVICE, "method", HouseService.METHOD_GET_HOUSES_BY_LOTSIZE);
       this.getHousesByPrice = io.netifi.proteus.metrics.ProteusMetrics.timed(registry.get(), "proteus.server", "service", HouseService.SERVICE, "method", HouseService.METHOD_GET_HOUSES_BY_PRICE);
+      this.getAllHouses = io.netifi.proteus.metrics.ProteusMetrics.timed(registry.get(), "proteus.server", "service", HouseService.SERVICE, "method", HouseService.METHOD_GET_ALL_HOUSES);
+      this.addHouse = io.netifi.proteus.metrics.ProteusMetrics.timed(registry.get(), "proteus.server", "service", HouseService.SERVICE, "method", HouseService.METHOD_ADD_HOUSE);
     }
 
     if (!tracer.isPresent()) {
@@ -45,6 +53,8 @@ public final class HouseServiceServer extends io.netifi.proteus.AbstractProteusS
       this.getHousesByBathsTrace = io.netifi.proteus.tracing.ProteusTracing.traceAsChild();
       this.getHousesByLotsizeTrace = io.netifi.proteus.tracing.ProteusTracing.traceAsChild();
       this.getHousesByPriceTrace = io.netifi.proteus.tracing.ProteusTracing.traceAsChild();
+      this.getAllHousesTrace = io.netifi.proteus.tracing.ProteusTracing.traceAsChild();
+      this.addHouseTrace = io.netifi.proteus.tracing.ProteusTracing.traceAsChild();
     } else {
       this.tracer = tracer.get();
       this.getHouseTrace = io.netifi.proteus.tracing.ProteusTracing.traceAsChild(this.tracer, HouseService.METHOD_GET_HOUSE, io.netifi.proteus.tracing.Tag.of("proteus.service", HouseService.SERVICE), io.netifi.proteus.tracing.Tag.of("proteus.type", "server"), io.netifi.proteus.tracing.Tag.of("proteus.version", "0.8.9"));
@@ -52,6 +62,8 @@ public final class HouseServiceServer extends io.netifi.proteus.AbstractProteusS
       this.getHousesByBathsTrace = io.netifi.proteus.tracing.ProteusTracing.traceAsChild(this.tracer, HouseService.METHOD_GET_HOUSES_BY_BATHS, io.netifi.proteus.tracing.Tag.of("proteus.service", HouseService.SERVICE), io.netifi.proteus.tracing.Tag.of("proteus.type", "server"), io.netifi.proteus.tracing.Tag.of("proteus.version", "0.8.9"));
       this.getHousesByLotsizeTrace = io.netifi.proteus.tracing.ProteusTracing.traceAsChild(this.tracer, HouseService.METHOD_GET_HOUSES_BY_LOTSIZE, io.netifi.proteus.tracing.Tag.of("proteus.service", HouseService.SERVICE), io.netifi.proteus.tracing.Tag.of("proteus.type", "server"), io.netifi.proteus.tracing.Tag.of("proteus.version", "0.8.9"));
       this.getHousesByPriceTrace = io.netifi.proteus.tracing.ProteusTracing.traceAsChild(this.tracer, HouseService.METHOD_GET_HOUSES_BY_PRICE, io.netifi.proteus.tracing.Tag.of("proteus.service", HouseService.SERVICE), io.netifi.proteus.tracing.Tag.of("proteus.type", "server"), io.netifi.proteus.tracing.Tag.of("proteus.version", "0.8.9"));
+      this.getAllHousesTrace = io.netifi.proteus.tracing.ProteusTracing.traceAsChild(this.tracer, HouseService.METHOD_GET_ALL_HOUSES, io.netifi.proteus.tracing.Tag.of("proteus.service", HouseService.SERVICE), io.netifi.proteus.tracing.Tag.of("proteus.type", "server"), io.netifi.proteus.tracing.Tag.of("proteus.version", "0.8.9"));
+      this.addHouseTrace = io.netifi.proteus.tracing.ProteusTracing.traceAsChild(this.tracer, HouseService.METHOD_ADD_HOUSE, io.netifi.proteus.tracing.Tag.of("proteus.service", HouseService.SERVICE), io.netifi.proteus.tracing.Tag.of("proteus.type", "server"), io.netifi.proteus.tracing.Tag.of("proteus.version", "0.8.9"));
     }
 
   }
@@ -80,6 +92,10 @@ public final class HouseServiceServer extends io.netifi.proteus.AbstractProteusS
         case HouseService.METHOD_GET_HOUSE: {
           com.google.protobuf.CodedInputStream is = com.google.protobuf.CodedInputStream.newInstance(payload.getData());
           return service.getHouse(io.agilehandy.proteus.house.service.protobuf.HouseRequest.parseFrom(is), metadata).map(serializer).transform(getHouse).transform(getHouseTrace.apply(spanContext));
+        }
+        case HouseService.METHOD_ADD_HOUSE: {
+          com.google.protobuf.CodedInputStream is = com.google.protobuf.CodedInputStream.newInstance(payload.getData());
+          return service.addHouse(io.agilehandy.proteus.house.service.protobuf.HouseRequest.parseFrom(is), metadata).map(serializer).transform(addHouse).transform(addHouseTrace.apply(spanContext));
         }
         default: {
           return reactor.core.publisher.Mono.error(new UnsupportedOperationException());
@@ -113,6 +129,10 @@ public final class HouseServiceServer extends io.netifi.proteus.AbstractProteusS
         case HouseService.METHOD_GET_HOUSES_BY_PRICE: {
           com.google.protobuf.CodedInputStream is = com.google.protobuf.CodedInputStream.newInstance(payload.getData());
           return service.getHousesByPrice(io.agilehandy.proteus.house.service.protobuf.HouseRequest.parseFrom(is), metadata).map(serializer).transform(getHousesByPrice).transform(getHousesByPriceTrace.apply(spanContext));
+        }
+        case HouseService.METHOD_GET_ALL_HOUSES: {
+          com.google.protobuf.CodedInputStream is = com.google.protobuf.CodedInputStream.newInstance(payload.getData());
+          return service.getAllHouses(io.agilehandy.proteus.house.service.protobuf.Empty.parseFrom(is), metadata).map(serializer).transform(getAllHouses).transform(getAllHousesTrace.apply(spanContext));
         }
         default: {
           return reactor.core.publisher.Flux.error(new UnsupportedOperationException());

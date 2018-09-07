@@ -1,0 +1,37 @@
+
+= Proteus Service Demo
+
+Proteus RPC service and client. Service interacts reactively with
+a MongoDB backend store. Communication between Service and Client uses
+RSocket protocol over TCP. Service and Client message each other via Proteus
+broker.
+
+== Steps to run the demo
+
+* run the broker as a docker container
+
+```
+  docker run -d \
+    -p 8001:8001 \
+    -p 7001:7001 \
+    -p 6001:6001 \
+    -e BROKER_SERVER_OPTS="'-Dnetifi.authentication.0.accessKey=9007199254740991'  \
+     '-Dnetifi.authentication.0.accessToken=kTBDVtfRBO4tHOnZzSyY5ym2kfY=' \
+     '-Dnetifi.broker.admin.accessKey=9007199254740991' \
+     '-Dnetifi.broker.admin.accessToken=kTBDVtfRBO4tHOnZzSyY5ym2kfY=' \
+     '-Dnetifi.broker.ssl.disabled=true'" \
+    netifi/proteus
+```
+
+* run the service
+
+```
+./gradlew :house-service:run
+```
+
+* run the client
+
+```
+./gradlew :house-client:run
+```
+

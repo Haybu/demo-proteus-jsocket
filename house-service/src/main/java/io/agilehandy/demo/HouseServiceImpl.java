@@ -2,9 +2,7 @@ package io.agilehandy.demo;
 
 import io.agilehandy.demo.data.House;
 import io.agilehandy.demo.data.HouseRepository;
-import io.agilehandy.proteus.house.service.protobuf.HouseResponse;
-import io.agilehandy.proteus.house.service.protobuf.HouseRequest;
-import io.agilehandy.proteus.house.service.protobuf.HouseService;
+import io.agilehandy.proteus.house.service.protobuf.*;
 import io.netty.buffer.ByteBuf;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
@@ -50,6 +48,15 @@ public class HouseServiceImpl implements HouseService {
         return null;
     }
 
+    @Override
+    public Flux<HouseResponse> getAllHouses(Empty message, ByteBuf metadata) {
+        return null;
+    }
+
+    @Override
+    public Mono<Identifier> addHouse(HouseRequest message, ByteBuf metadata) {
+        return null;
+    }
 
     private HouseResponse buildHouseResponse(House house) {
         return HouseResponse.newBuilder()

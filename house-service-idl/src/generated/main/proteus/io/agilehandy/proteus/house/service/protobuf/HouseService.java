@@ -12,6 +12,8 @@ public interface HouseService {
   String METHOD_GET_HOUSES_BY_BATHS = "getHousesByBaths";
   String METHOD_GET_HOUSES_BY_LOTSIZE = "getHousesByLotsize";
   String METHOD_GET_HOUSES_BY_PRICE = "getHousesByPrice";
+  String METHOD_GET_ALL_HOUSES = "getAllHouses";
+  String METHOD_ADD_HOUSE = "addHouse";
 
   /**
    */
@@ -32,4 +34,12 @@ public interface HouseService {
   /**
    */
   reactor.core.publisher.Flux<io.agilehandy.proteus.house.service.protobuf.HouseResponse> getHousesByPrice(io.agilehandy.proteus.house.service.protobuf.HouseRequest message, io.netty.buffer.ByteBuf metadata);
+
+  /**
+   */
+  reactor.core.publisher.Flux<io.agilehandy.proteus.house.service.protobuf.HouseResponse> getAllHouses(io.agilehandy.proteus.house.service.protobuf.Empty message, io.netty.buffer.ByteBuf metadata);
+
+  /**
+   */
+  reactor.core.publisher.Mono<io.agilehandy.proteus.house.service.protobuf.Identifier> addHouse(io.agilehandy.proteus.house.service.protobuf.HouseRequest message, io.netty.buffer.ByteBuf metadata);
 }

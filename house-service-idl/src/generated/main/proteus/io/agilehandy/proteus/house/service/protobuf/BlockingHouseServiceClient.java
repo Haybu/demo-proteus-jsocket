@@ -76,5 +76,28 @@ public final class BlockingHouseServiceClient implements BlockingHouseService {
     return new  io.netifi.proteus.BlockingIterable<>(stream, reactor.util.concurrent.Queues.SMALL_BUFFER_SIZE, reactor.util.concurrent.Queues.small());
   }
 
+  @io.netifi.proteus.annotations.internal.ProteusGeneratedMethod(returnTypeClass = io.agilehandy.proteus.house.service.protobuf.HouseResponse.class)
+  public  io.netifi.proteus.BlockingIterable<io.agilehandy.proteus.house.service.protobuf.HouseResponse> getAllHouses(io.agilehandy.proteus.house.service.protobuf.Empty message) {
+    return getAllHouses(message, io.netty.buffer.Unpooled.EMPTY_BUFFER);
+  }
+
+  @java.lang.Override
+  @io.netifi.proteus.annotations.internal.ProteusGeneratedMethod(returnTypeClass = io.agilehandy.proteus.house.service.protobuf.HouseResponse.class)
+  public  io.netifi.proteus.BlockingIterable<io.agilehandy.proteus.house.service.protobuf.HouseResponse> getAllHouses(io.agilehandy.proteus.house.service.protobuf.Empty message, io.netty.buffer.ByteBuf metadata) {
+    reactor.core.publisher.Flux stream = delegate.getAllHouses(message, metadata);
+    return new  io.netifi.proteus.BlockingIterable<>(stream, reactor.util.concurrent.Queues.SMALL_BUFFER_SIZE, reactor.util.concurrent.Queues.small());
+  }
+
+  @io.netifi.proteus.annotations.internal.ProteusGeneratedMethod(returnTypeClass = io.agilehandy.proteus.house.service.protobuf.Identifier.class)
+  public io.agilehandy.proteus.house.service.protobuf.Identifier addHouse(io.agilehandy.proteus.house.service.protobuf.HouseRequest message) {
+    return addHouse(message, io.netty.buffer.Unpooled.EMPTY_BUFFER);
+  }
+
+  @java.lang.Override
+  @io.netifi.proteus.annotations.internal.ProteusGeneratedMethod(returnTypeClass = io.agilehandy.proteus.house.service.protobuf.Identifier.class)
+  public io.agilehandy.proteus.house.service.protobuf.Identifier addHouse(io.agilehandy.proteus.house.service.protobuf.HouseRequest message, io.netty.buffer.ByteBuf metadata) {
+    return delegate.addHouse(message, metadata).block();
+  }
+
 }
 

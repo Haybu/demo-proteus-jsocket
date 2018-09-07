@@ -16,6 +16,8 @@ public final class BlockingHouseServiceServer extends io.netifi.proteus.Abstract
   private final java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>> getHousesByBaths;
   private final java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>> getHousesByLotsize;
   private final java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>> getHousesByPrice;
+  private final java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>> getAllHouses;
+  private final java.util.function.Function<? super org.reactivestreams.Publisher<io.rsocket.Payload>, ? extends org.reactivestreams.Publisher<io.rsocket.Payload>> addHouse;
   @javax.inject.Inject
   public BlockingHouseServiceServer(BlockingHouseService service, java.util.Optional<reactor.core.scheduler.Scheduler> scheduler, java.util.Optional<io.micrometer.core.instrument.MeterRegistry> registry) {
     this.scheduler = scheduler.orElse(reactor.core.scheduler.Schedulers.elastic());
@@ -26,12 +28,16 @@ public final class BlockingHouseServiceServer extends io.netifi.proteus.Abstract
       this.getHousesByBaths = java.util.function.Function.identity();
       this.getHousesByLotsize = java.util.function.Function.identity();
       this.getHousesByPrice = java.util.function.Function.identity();
+      this.getAllHouses = java.util.function.Function.identity();
+      this.addHouse = java.util.function.Function.identity();
     } else {
       this.getHouse = io.netifi.proteus.metrics.ProteusMetrics.timed(registry.get(), "proteus.server", "service", BlockingHouseService.SERVICE_ID, "method", BlockingHouseService.METHOD_GET_HOUSE);
       this.getHousesByRooms = io.netifi.proteus.metrics.ProteusMetrics.timed(registry.get(), "proteus.server", "service", BlockingHouseService.SERVICE_ID, "method", BlockingHouseService.METHOD_GET_HOUSES_BY_ROOMS);
       this.getHousesByBaths = io.netifi.proteus.metrics.ProteusMetrics.timed(registry.get(), "proteus.server", "service", BlockingHouseService.SERVICE_ID, "method", BlockingHouseService.METHOD_GET_HOUSES_BY_BATHS);
       this.getHousesByLotsize = io.netifi.proteus.metrics.ProteusMetrics.timed(registry.get(), "proteus.server", "service", BlockingHouseService.SERVICE_ID, "method", BlockingHouseService.METHOD_GET_HOUSES_BY_LOTSIZE);
       this.getHousesByPrice = io.netifi.proteus.metrics.ProteusMetrics.timed(registry.get(), "proteus.server", "service", BlockingHouseService.SERVICE_ID, "method", BlockingHouseService.METHOD_GET_HOUSES_BY_PRICE);
+      this.getAllHouses = io.netifi.proteus.metrics.ProteusMetrics.timed(registry.get(), "proteus.server", "service", BlockingHouseService.SERVICE_ID, "method", BlockingHouseService.METHOD_GET_ALL_HOUSES);
+      this.addHouse = io.netifi.proteus.metrics.ProteusMetrics.timed(registry.get(), "proteus.server", "service", BlockingHouseService.SERVICE_ID, "method", BlockingHouseService.METHOD_ADD_HOUSE);
     }
 
   }
@@ -60,6 +66,11 @@ public final class BlockingHouseServiceServer extends io.netifi.proteus.Abstract
           com.google.protobuf.CodedInputStream is = com.google.protobuf.CodedInputStream.newInstance(payload.getData());
           io.agilehandy.proteus.house.service.protobuf.HouseRequest message = io.agilehandy.proteus.house.service.protobuf.HouseRequest.parseFrom(is);
           return reactor.core.publisher.Mono.fromSupplier(() -> service.getHouse(message, metadata)).map(serializer).transform(getHouse).subscribeOn(scheduler);
+        }
+        case HouseService.METHOD_ADD_HOUSE: {
+          com.google.protobuf.CodedInputStream is = com.google.protobuf.CodedInputStream.newInstance(payload.getData());
+          io.agilehandy.proteus.house.service.protobuf.HouseRequest message = io.agilehandy.proteus.house.service.protobuf.HouseRequest.parseFrom(is);
+          return reactor.core.publisher.Mono.fromSupplier(() -> service.addHouse(message, metadata)).map(serializer).transform(addHouse).subscribeOn(scheduler);
         }
         default: {
           return reactor.core.publisher.Mono.error(new UnsupportedOperationException());
@@ -96,6 +107,11 @@ public final class BlockingHouseServiceServer extends io.netifi.proteus.Abstract
           com.google.protobuf.CodedInputStream is = com.google.protobuf.CodedInputStream.newInstance(payload.getData());
           io.agilehandy.proteus.house.service.protobuf.HouseRequest message = io.agilehandy.proteus.house.service.protobuf.HouseRequest.parseFrom(is);
           return reactor.core.publisher.Flux.defer(() -> reactor.core.publisher.Flux.fromIterable(service.getHousesByPrice(message, metadata)).map(serializer).transform(getHousesByPrice)).subscribeOn(scheduler);
+        }
+        case BlockingHouseService.METHOD_GET_ALL_HOUSES: {
+          com.google.protobuf.CodedInputStream is = com.google.protobuf.CodedInputStream.newInstance(payload.getData());
+          io.agilehandy.proteus.house.service.protobuf.Empty message = io.agilehandy.proteus.house.service.protobuf.Empty.parseFrom(is);
+          return reactor.core.publisher.Flux.defer(() -> reactor.core.publisher.Flux.fromIterable(service.getAllHouses(message, metadata)).map(serializer).transform(getAllHouses)).subscribeOn(scheduler);
         }
         default: {
           return reactor.core.publisher.Flux.error(new UnsupportedOperationException());

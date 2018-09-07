@@ -1,4 +1,4 @@
 rootProject.name = 'demo-proteus-jsocket'
-//include 'house-client'
+include 'house-client'
 include 'house-service'
 include 'house-service-idl'
