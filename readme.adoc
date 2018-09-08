@@ -8,6 +8,12 @@ broker.
 
 == Steps to run the demo
 
+* build the project
+
+```
+./gradlew build
+```
+
 * run the broker as a docker container
 
 ```
