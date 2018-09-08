@@ -32,8 +32,8 @@ public class HouseSeed implements ApplicationRunner {
         houseRepository
           .deleteAll()
           .thenMany(Flux.fromStream(houses.stream())
-                .flatMap(house -> houseRepository.save(house))
-                .thenMany(houseRepository.findAll())
+                    .flatMap(house -> houseRepository.save(house))
+                    .thenMany(houseRepository.findAll())
           )
           .subscribe(System.out::println)
         ;

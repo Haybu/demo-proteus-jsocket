@@ -1,23 +1,31 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootDependenciesVersion}")
+    }
+}
+
 plugins {
     id 'java'
     id 'application'
-    id 'org.springframework.boot' version '2.0.4.RELEASE'
+    id 'org.springframework.boot' version '2.0.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.5.RELEASE'
 }
 
-mainClassName = 'io.netifi.proteus.quickstart.client.Main'
+mainClassName = 'io.agilehandy.demo.HouseClientApplication'
 sourceCompatibility = 1.8
 
 dependencyManagement {
     imports {
-        mavenBom "io.spring.platform:platform-bom:${springbomVersion}"
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootDependenciesVersion}"
     }
 }
 
 dependencies {
     compile project(':house-service-idl')
-
-    compile "com.netifi.proteus:proteus-spring-boot-starter:$proteusSpringVersion"
+    compile "com.netifi.proteus:proteus-spring-boot-starter:${proteusBootVersion}"
 }
 
 configurations.all {

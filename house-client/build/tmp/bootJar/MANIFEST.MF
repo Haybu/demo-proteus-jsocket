@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Start-Class: io.netifi.proteus.quickstart.client.Main
-Main-Class: org.springframework.boot.loader.JarLauncher
-

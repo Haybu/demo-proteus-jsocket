@@ -1,12 +1,14 @@
 package io.agilehandy.demo;
 
-import io.agilehandy.proteus.house.service.protobuf.HouseRequest;
-import io.agilehandy.proteus.house.service.protobuf.HouseServiceClient;
-import io.netifi.proteus.annotations.ProteusClient;
+import io.agilehandy.proteus.house.service.Empty;
+import io.agilehandy.proteus.house.service.HouseServiceClient;
+import io.rsocket.rpc.annotations.Client;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.Duration;
 
 /**
  * Calls the Hello Service
@@ -17,21 +19,33 @@ public class HouseClientRunner implements CommandLineRunner {
     private static final Logger logger = LogManager.getLogger(HouseClientRunner.class);
     
     
-    @ProteusClient(group = "house.services.data-services")
+    @Client(group = "house.services.dataservices")
     private HouseServiceClient client;
     
-    @Override
+    //@Override
+    /**
     public void run(String... args) throws Exception {
-        // Create Request to HelloService
+
         HouseRequest request = HouseRequest.newBuilder()
                                    .setId("111")
                                    .build();
     
         logger.info("Retrieving a house from HouseService...");
-    
-        // Call the HelloService
+
         logger.info(client.getHouse(request).block());
-        
+
+        System.exit(0);
+    }
+    */
+
+    @Override
+    public void run(String... args) throws Exception {
+        Empty request = Empty.newBuilder().build();
+
+        logger.info("Retrieving all houses from HouseService...");
+
+        client.getAllHouses(request).log().blockFirst(Duration.ofSeconds(5));
+
         // Exit
         System.exit(0);
     }
