@@ -1,4 +1,4 @@
-rootProject.name = 'demo-proteus-jsocket'
+rootProject.name = 'demo-proteus-rsocket'
 include 'house-client'
 include 'house-service'
 include 'house-service-idl'
