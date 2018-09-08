@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package io.agilehandy.proteus.house.service;
+
+option java_package = "io.agilehandy.proteus.house.service";
+option java_outer_classname = "HouseServiceProto";
+option java_multiple_files = true;
+
+service HouseService {
+
+    rpc getHouse (HouseRequest) returns (HouseResponse) {}
+    
+    rpc getHousesByRooms (HouseRequest) returns (stream HouseResponse) {}
+
+    rpc getHousesByBaths (HouseRequest) returns (stream HouseResponse) {}
+
+    rpc getHousesByLotsize (HouseRequest) returns (stream HouseResponse) {}
+
+    rpc getHousesByPrice (HouseRequest) returns (stream HouseResponse) {}
+
+    rpc getAllHouses (Empty) returns (stream HouseResponse) {}
+
+    rpc addHouse (HouseRequest) returns (Identifier) {}
+}
+
+
+message Empty {
+
+}
+
+message Identifier {
+    string id = 1;
+}
+
+message HouseRequest {
+    string id = 1;
+    int32 maxRooms = 2;
+    int32 maxBaths = 3;
+    float maxLotsize = 4;
+    float maxArea = 5;
+    float maxPrice = 6;
+}
+
+message HouseResponse {
+    string id = 1;
+    string street = 2;
+    string city = 3;
+    string zip = 4;
+    string state = 5;
+    int32 rooms = 6;
+    float baths = 7;
+    float price = 8;
+    float area = 9;
+    float lotsize = 10;
+    int32 stories = 11;
+}

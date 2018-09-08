@@ -17,7 +17,7 @@ public class HouseClientRunner implements CommandLineRunner {
     private static final Logger logger = LogManager.getLogger(HouseClientRunner.class);
     
     
-    @Client(group = "house.services.dataservices")
+    @Client(group = "house.service.HouseService")
     private HouseServiceClient client;
     
     //@Override
