@@ -1,5 +1,7 @@
 package io.agilehandy.demo.data;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -8,12 +10,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HouseFeed {
+
+    private static final Logger logger = LogManager.getLogger(HouseFeed.class);
 
     public static List<House> read(String filePath) throws ParseException {
         Resource resource = new ClassPathResource(filePath);
@@ -26,12 +28,13 @@ public class HouseFeed {
 
             House house;
             String line;
+            String[] fields = null;
 
             //each line consists of the following fields
             //street:city:state:zip:lot:area:stories:rooms:baths:price
-            while ((line = br.readLine()) != null &&
-                    !line.startsWith("#")) {
-                String[] fields = line.split(":");
+            while ((line = br.readLine()) != null) {
+                logger.info("line feed: " + line);
+                fields = line.split(":");
                 house = new House();
                 house.setStreet(fields[0]);
                 house.setCity(fields[1]);
@@ -46,6 +49,8 @@ public class HouseFeed {
                 houses.add(house);
             }
             br.close();
+
+            logger.info("Done reading feed data file");
 
         } catch(IOException e){
             e.printStackTrace();

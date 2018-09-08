@@ -14,13 +14,14 @@ import java.util.List;
 @Slf4j
 public class HouseSeed implements ApplicationRunner {
 
-    @Value("${data.filepath}")
     private String datafile;
 
     private final HouseRepository houseRepository;
 
-    public HouseSeed(HouseRepository houseRepository) {
+    public HouseSeed(HouseRepository houseRepository,
+                     @Value("${data.filepath}") String datafile) {
         this.houseRepository = houseRepository;
+        this.datafile = datafile;
     }
 
     @Override

@@ -8,8 +8,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.Duration;
-
 /**
  * Calls the Hello Service
  */
@@ -44,10 +42,13 @@ public class HouseClientRunner implements CommandLineRunner {
 
         logger.info("Retrieving all houses from HouseService...");
 
-        client.getAllHouses(request).log().blockFirst(Duration.ofSeconds(5));
+        client.getAllHouses(request)
+                .doOnError(Throwable::printStackTrace)
+                .subscribe(response -> logger.info("House Street: {}", response.getStreet()));
+
 
         // Exit
-        System.exit(0);
+        //System.exit(0);
     }
 
 }

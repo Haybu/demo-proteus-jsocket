@@ -3,25 +3,17 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootDependenciesVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
-plugins {
-    id 'java'
-    id 'application'
-    id 'org.springframework.boot' version '2.0.2.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.5.RELEASE'
-}
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 mainClassName = 'io.agilehandy.demo.HouseClientApplication'
 sourceCompatibility = 1.8
-
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootDependenciesVersion}"
-    }
-}
 
 dependencies {
     compile project(':house-service-idl')

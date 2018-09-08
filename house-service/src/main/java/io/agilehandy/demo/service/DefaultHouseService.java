@@ -12,11 +12,11 @@ import reactor.core.publisher.Mono;
 
 @Component
 @Slf4j
-public class HouseServiceImpl implements HouseService {
+public class DefaultHouseService implements HouseService {
 
     private final HouseRepository houseRepository;
 
-    public HouseServiceImpl(HouseRepository houseRepository) {
+    public DefaultHouseService(HouseRepository houseRepository) {
         this.houseRepository = houseRepository;
     }
 
