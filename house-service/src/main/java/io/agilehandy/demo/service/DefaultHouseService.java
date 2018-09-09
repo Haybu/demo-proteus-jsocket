@@ -2,7 +2,7 @@ package io.agilehandy.demo.service;
 
 import io.agilehandy.demo.data.House;
 import io.agilehandy.demo.data.HouseRepository;
-import io.agilehandy.proteus.house.service.*;
+import io.agilehandy.demo.proteus.service.*;
 import io.netty.buffer.ByteBuf;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;

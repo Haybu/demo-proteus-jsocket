@@ -1,7 +1,7 @@
 package io.agilehandy.demo;
 
-import io.agilehandy.proteus.house.service.Empty;
-import io.agilehandy.proteus.house.service.HouseServiceClient;
+import io.agilehandy.demo.proteus.service.Empty;
+import io.agilehandy.demo.proteus.service.HouseServiceClient;
 import io.rsocket.rpc.annotations.Client;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
