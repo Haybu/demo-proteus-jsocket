@@ -27,12 +27,11 @@ public class HouseSeed implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("Initializing database...");
-        List<House> houses = HouseFeed.read(datafile);
 
         //@formatter:off
         houseRepository
           .deleteAll()
-          .thenMany(Flux.fromStream(houses.stream())
+          .thenMany(HouseFeed.read(datafile)
                     .flatMap(house -> houseRepository.save(house))
                     .thenMany(houseRepository.findAll())
           )
