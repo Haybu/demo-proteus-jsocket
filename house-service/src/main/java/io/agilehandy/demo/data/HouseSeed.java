@@ -14,8 +14,7 @@ import java.util.List;
 @Slf4j
 public class HouseSeed implements ApplicationRunner {
 
-    private String datafile;
-
+    private final String datafile;
     private final HouseRepository houseRepository;
 
     public HouseSeed(HouseRepository houseRepository,
