@@ -18,6 +18,8 @@ sourceCompatibility = 1.8
 dependencies {
     compile project(':house-service-idl')
     compile "com.netifi.proteus:proteus-spring-boot-starter:${proteusBootVersion}"
+
+    //compile "com.netifi.proteus:proteus-httpgateway:0.1.1-SNAPSHOT"
 }
 
 configurations.all {

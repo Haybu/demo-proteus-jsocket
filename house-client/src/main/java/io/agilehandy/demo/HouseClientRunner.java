@@ -8,9 +8,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-/**
- * Calls the Hello Service
- */
 @Component
 
 public class HouseClientRunner implements CommandLineRunner {
